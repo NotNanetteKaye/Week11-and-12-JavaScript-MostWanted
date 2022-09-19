@@ -150,7 +150,6 @@ function displayPerson(person) {
     personInfo += `Occupation: ${person.occupation}\n`;
     return personInfo;
 }
-
 // End of displayPerson()
 
 /**
@@ -194,9 +193,18 @@ function chars(input) {
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
 
-function findPersonFamily(person, people){
+function findPersonFamily(callback){
     let personFamily = person
 }
+
+function spouseFinder(person, people){
+    if (person.currentSpouse === people.currentSpouse){
+        return true;
+    }
+}
+
+let personFamily = findPersonFamily(spouseFinder, parentFinder, siblingFinder)
+
 
 // function findPersonDescendants(){
 //     let personDescendants = 
