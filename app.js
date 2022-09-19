@@ -141,17 +141,16 @@ function displayPeople(people) {
 function displayPerson(person) {
     let personInfo = `First Name: ${person.firstName}\n`;
     personInfo += `Last Name: ${person.lastName}\n`;
-    personInfo += `Gender: ${person.gender}\n`;
+    personInfo += `Gender: ${person.gender}\n`; 
     personInfo += `DOB: ${person.dob}\n`;
     personInfo += `Height: ${person.height}\n`;
+    personInfo += `ID: ${person.id}\n`;
     personInfo += `Weight: ${person.weight}\n`;
-    personInfo += `EyeColor: ${person.eyeColor}\n`;
+    personInfo += `Eye color: ${person.eyeColor}\n`;
     personInfo += `Occupation: ${person.occupation}\n`;
-    personInfo += `Parents: ${person.parents}\n`;
-    personInfo += `Current Spouse: ${person.currentSpouse}\n`;
-    //! TODO #1a: finish getting the rest of the information to display //////////////////////////////////////////
-    alert(personInfo);
+    return personInfo;
 }
+
 // End of displayPerson()
 
 /**
@@ -193,3 +192,12 @@ function chars(input) {
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
+
+
+function findPersonFamily(person, people){
+    let personFamily = person
+}
+
+// function findPersonDescendants(){
+//     let personDescendants = 
+// }
