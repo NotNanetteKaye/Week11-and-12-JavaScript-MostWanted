@@ -89,7 +89,7 @@ function mainMenu(person, people) {
             // Stop application execution
             return;
         case "test":
-            let personFamily = findPersonFamily(person)
+            let currentSpouse = currentSpouseResults(person[0], people);
         default:
             // Prompt user again. Another instance of recursion
             return mainMenu(person, people);
@@ -193,39 +193,28 @@ function chars(input) {
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
-// function findPersonFamily(person, people) {
-//     let personFamily = `Spouse: ${currentSpouse}`;
-//     return personFamily;
-// }
 
-// function currentSpouseResults(person, people) {
-//     let result;
-//     result = person.map((spouse) => {
-//         if (person.currentspouse === people.currentSpouse) {
-//             return `${spouse.firstName} ${spouse.lastName}`;
-//         }
-//         return false
-//     })
-//     return result;
-// }
-
-
-// let currentSpouse = currentSpouseResults()
+// find current spouse
+function currentSpouseResults(person={}, people=[]) {
+    let result;
+    result = people.filter(function (potentialSpouse) {
+        if (potentialSpouse.id === person.currentSpouse) {
+            return true;
+        }
+    })
+    return result;
+}
+// end of finding current spouse
 
 // find descendants
-
 function findPersonDescendants(personObj={}, peopleArray=[]){
     //                                      returns T/F if condition is T/F
-    let results = peopleArray.filter( (item) => item.parents.includes(personObj.id) );
+    let results = peopleArray.filter((item) => item.parents.includes(personObj.id));
     // Base Case (terminating condtion -- there are no items with my id in their parents[])
-    if( results.length === 0) return results;
-
+    if(results.length === 0) return results;
     // Recursive Case (if length is >0, check each array item (descendent) to see if THEY have descendants)
-    for (let i = 0; i < results.length; i++) {
-        results = results.concat(findPersonDescendants(results[i], people))        
+    for(let i = 0; i < results.length; i++) {
+        return results = results.concat(findPersonDescendants(results[i], people))        
     }
-    return results;
 }
-
-
-
+// end of finding descendants
