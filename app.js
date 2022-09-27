@@ -89,8 +89,8 @@ function mainMenu(person, people) {
             // Stop application execution
             return;
         case "test":
-            let currentParents = findCurrentParents(person[0], people);
-            console.log(displayPeople(currentParents));
+            let currentSiblings = findCurrentSiblings(person[0], people);
+            console.log(displayPeople(currentSiblings));
         default:
             // Prompt user again. Another instance of recursion
             return mainMenu(person, people);
@@ -218,3 +218,19 @@ function findCurrentParents(personObj={}, peopleArray=[]) {
     return result;
 }
 // end of finding current parents
+
+// find current siblings
+function findCurrentSiblings(personObj={}, peopleArray=[]) {
+    let result = peopleArray.filter(function (sibling) {
+        if ((sibling.parents === personObj.parents) && (sibling.lastName === personObj.lastName)) {
+            return true;
+        }
+    })
+    return result
+}
+// end of finding current siblings
+
+//search by traits
+function searchByTraits(people=[]) {
+}
+// end of search by traits
