@@ -32,6 +32,7 @@ function app(people) {
             //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
                 //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
             searchResults = searchByTraits(people);
+            alert(displayPeople(searchByTraits(people)));
             break;
         default:
             // Re-initializes the app() if neither case was hit above. This is an instance of recursion.
@@ -222,7 +223,7 @@ function findCurrentParents(personObj={}, peopleArray=[]) {
 // find current siblings
 function findCurrentSiblings(personObj={}, peopleArray=[]) {
     let result = peopleArray.filter(function (sibling) {
-        if ((sibling.parents === personObj.parents) && (sibling.lastName === personObj.lastName)) {
+        if ((sibling.parents === personObj.parents)) {
             return true;
         }
     })
@@ -231,6 +232,14 @@ function findCurrentSiblings(personObj={}, peopleArray=[]) {
 // end of finding current siblings
 
 //search by traits
-function searchByTraits(people=[]) {
+function searchBySingularTrait(people=[]) {
+    let userInputTrait = prompt("What trait would you like to search for? ");
+    let userInputDescribe = prompt("Please describe trait: ");
+    let foundPeople  = people.filter(function(foundObj) {
+        if (foundObj[userInputTrait].includes(userInputDescribe)) {
+            return true;
+        }
+    });
+    return foundPeople;
 }
 // end of search by traits
