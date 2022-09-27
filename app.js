@@ -89,7 +89,8 @@ function mainMenu(person, people) {
             // Stop application execution
             return;
         case "test":
-            let currentSpouse = currentSpouseResults(person[0], people);
+            let currentParents = findCurrentParents(person[0], people);
+            console.log(displayPeople(currentParents));
         default:
             // Prompt user again. Another instance of recursion
             return mainMenu(person, people);
@@ -195,7 +196,7 @@ function chars(input) {
 
 
 // find current spouse
-function currentSpouseResults(person={}, people=[]) {
+function findCurrentSpouse(person={}, people=[]) {
     let result;
     result = people.filter(function (potentialSpouse) {
         if (potentialSpouse.id === person.currentSpouse) {
@@ -206,15 +207,14 @@ function currentSpouseResults(person={}, people=[]) {
 }
 // end of finding current spouse
 
-// find descendants
-function findPersonDescendants(personObj={}, peopleArray=[]){
-    //                                      returns T/F if condition is T/F
-    let results = peopleArray.filter((item) => item.parents.includes(personObj.id));
-    // Base Case (terminating condtion -- there are no items with my id in their parents[])
-    if(results.length === 0) return results;
-    // Recursive Case (if length is >0, check each array item (descendent) to see if THEY have descendants)
-    for(let i = 0; i < results.length; i++) {
-        return results = results.concat(findPersonDescendants(results[i], people))        
-    }
+// find current parents
+function findCurrentParents(personObj={}, peopleArray=[]) {
+    let result= 
+    result= peopleArray.filter(function (potentialParent) {
+        if (personObj.parents.includes(potentialParent.id)) {
+            return true;
+        }
+    })
+    return result;
 }
-// end of finding descendants
+// end of finding current parents
