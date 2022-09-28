@@ -198,13 +198,22 @@ function chars(input) {
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
 function findPersonFamily(person={}, people=[]) {
-    let personfamily; "Current Spouse,"
+    let currentSpouse = findCurrentSpouse(person, people);
+    let currentParents = findCurrentParents(person, people);
+    currentParents = currentParents.map(onlyWantNames);
+    // let currentSiblings = findCurrentSiblings(person, people);
+    // currentSiblings = currentSiblings.map(onlyWantNames);
+    let personFamily = `Current Spouse: ${currentSpouse[0].firstName} ${currentSpouse[0].lastName}\n`;
+    personFamily += `Current Parents: ${currentParents[0].firstName}`;
+    // personFamily += ("Current Siblings:", (currentSiblings[0].firstName) (currentSiblings[0].lastName));
     return personFamily;
 }
 
 
-
-
+function onlyWantNames(obj) {
+    const {firstName, lastName} = obj;
+    return {firstName, lastName};
+}
 
 
 
