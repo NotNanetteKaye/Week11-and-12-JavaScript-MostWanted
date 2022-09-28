@@ -32,7 +32,6 @@ function app(people) {
             //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
                 //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
             searchResults = searchByTraits(people);
-            alert(displayPeople(searchByTraits(people)));
             break;
         default:
             // Re-initializes the app() if neither case was hit above. This is an instance of recursion.
@@ -192,8 +191,12 @@ function chars(input) {
 }
 // End of chars()
 
+
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
+
+
+
 
 
 // find current spouse
@@ -223,15 +226,42 @@ function findCurrentParents(personObj={}, peopleArray=[]) {
 // find current siblings
 function findCurrentSiblings(personObj={}, peopleArray=[]) {
     let result = peopleArray.filter(function (sibling) {
-        if ((sibling.parents === personObj.parents)) {
+        if ((personObj.parents.includes(sibling.parents[0] || sibling.parents[1]))) {
             return true;
         }
     })
     return result
 }
-// end of finding current siblings
 
-//search by traits
+// search by traits
+function searchByTraits(people) {
+    let searchTraits = promptFor(
+        "We can search for people based on traits! How many traits are you looking for? Maximum of 5: ",
+        intoIntegers)
+    let searchResults;
+    switch(searchTraits) {
+        case (searchTraits === 1):
+            searchResults = searchBySingularTrait(people);
+            break;
+        case (searchTraits > 1):
+            searchResults = searchByManyTraits(people);
+            break; 
+        default:
+            searchByTraits(people);
+            break;
+    }
+    findingPeople(searchResults, people);
+}
+
+function intoIntegers(input) {
+    if (input <= 5) {
+        return (parseInt(input));
+    }
+    return result;
+}
+// end of search by traits
+
+//search by singular trait
 function searchBySingularTrait(people=[]) {
     let userInputTrait = prompt("What trait would you like to search for? ");
     let userInputDescribe = prompt("Please describe trait: ");
@@ -242,4 +272,9 @@ function searchBySingularTrait(people=[]) {
     });
     return foundPeople;
 }
-// end of search by traits
+// end of search by singular trait
+
+//search by many traits
+function searchByManyTraits(people=[]) {
+
+}
