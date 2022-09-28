@@ -189,11 +189,22 @@ function yesNo(input) {
 function chars(input) {
     return true; // Default validation only
 }
+
+
 // End of chars()
 
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
+
+function findPersonFamily(person={}, people=[]) {
+    let personfamily; 
+    return personFamily;
+}
+
+
+
+
 
 
 
@@ -233,17 +244,22 @@ function findCurrentSiblings(personObj={}, peopleArray=[]) {
     return result
 }
 
+
+
+
+
 // search by traits
 function searchByTraits(people) {
     let searchTraits = promptFor(
-        "We can search for people based on traits! How many traits are you looking for? Maximum of 5: ",
-        intoIntegers)
+        "We can search for people based on traits! How many identifiable traits can you think of? Maximum of 5: ",
+        belowSixTraits)
     let searchResults;
+    searchTraits = parseInt(searchTraits)
     switch(searchTraits) {
-        case (searchTraits === 1):
+        case 1:
             searchResults = searchBySingularTrait(people);
             break;
-        case (searchTraits > 1):
+        case 2,3,4,5:
             searchResults = searchByManyTraits(people);
             break; 
         default:
@@ -253,7 +269,7 @@ function searchByTraits(people) {
     findingPeople(searchResults, people);
 }
 
-function intoIntegers(input) {
+function belowSixTraits(input) {
     if (input <= 5) {
         return (parseInt(input));
     }
