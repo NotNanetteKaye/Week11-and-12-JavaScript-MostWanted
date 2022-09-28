@@ -198,7 +198,7 @@ function chars(input) {
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
 function findPersonFamily(person={}, people=[]) {
-    let personfamily; 
+    let personfamily; "Current Spouse,"
     return personFamily;
 }
 
@@ -244,10 +244,6 @@ function findCurrentSiblings(personObj={}, peopleArray=[]) {
     return result
 }
 
-
-
-
-
 // search by traits
 function searchByTraits(people) {
     let searchTraits = promptFor(
@@ -271,15 +267,12 @@ function searchByTraits(people) {
 
 function belowSixTraits(input) {
     if (input <= 5) {
-        return (parseInt(input));
+        return true;
     }
-    return result;
 }
-// end of search by traits
 
-//search by singular trait
 function searchBySingularTrait(people=[]) {
-    let userInputTrait = prompt("What trait would you like to search for? ");
+    let userInputTrait = promptFor("What trait would you like to search for? Options are gender, dob, height, weight, eyeColor, occupation: ", checkingTraits);
     let userInputDescribe = prompt("Please describe trait: ");
     let foundPeople  = people.filter(function(foundObj) {
         if (foundObj[userInputTrait].includes(userInputDescribe)) {
@@ -288,9 +281,14 @@ function searchBySingularTrait(people=[]) {
     });
     return foundPeople;
 }
-// end of search by singular trait
 
-//search by many traits
+function checkingTraits(input) {
+    if (input=== "gender" || "dob" || "height" || "weight" || "eyeColor" || "occupation") {
+        return true;
+    }
+}
+
+
 function searchByManyTraits(people=[]) {
 
 }
