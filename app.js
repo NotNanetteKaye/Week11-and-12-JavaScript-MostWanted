@@ -89,8 +89,6 @@ function mainMenu(person, people) {
             // Stop application execution
             return;
         case "test":
-            let currentSiblings = findCurrentSiblings(person[0], people);
-            console.log(displayPeople(currentSiblings));
         default:
             // Prompt user again. Another instance of recursion
             return mainMenu(person, people);
@@ -199,24 +197,24 @@ function chars(input) {
 
 function findPersonFamily(person={}, people=[]) {
     let currentSpouse = findCurrentSpouse(person, people);
-    let currentParents = findCurrentParents(person, people);
-    currentParents = currentParents.map(onlyWantNames);
-    // let currentSiblings = findCurrentSiblings(person, people);
-    // currentSiblings = currentSiblings.map(onlyWantNames);
-    let personFamily = `Current Spouse: ${currentSpouse[0].firstName} ${currentSpouse[0].lastName}\n`;
-    personFamily += `Current Parents: ${currentParents[0].firstName}`;
-    // personFamily += ("Current Siblings:", (currentSiblings[0].firstName) (currentSiblings[0].lastName));
+
+    let currentParentsArray = (findCurrentParents(person, people));
+    let currentParentsName = [];
+    for (let i=0; i<currentParentsArray.length; i++) {
+        currentParentsName.push(currentParentsArray[i].firstName);
+    }
+
+    let currentSiblingArray = (findCurrentSiblings(person, people));
+    let currentSiblingsName = [];
+    for (let i=0; i<currentSiblingArray.length; i++) {
+        currentSiblingsName.push(currentSiblingArray[i].firstName)
+    }
+
+    let personFamily = (`Current Spouse: ${currentSpouse[0].firstName} ${currentSpouse[0].lastName}\n`);
+    personFamily += (`Current Parents: ${currentParentsName} ${person.lastName}\n`);
+    personFamily += ( `Current Sibilings: ${currentSiblingsName} ${person.lastName}\n`);
     return personFamily;
 }
-
-
-function onlyWantNames(obj) {
-    const {firstName, lastName} = obj;
-    return {firstName, lastName};
-}
-
-
-
 
 
 // find current spouse
@@ -251,6 +249,15 @@ function findCurrentSiblings(personObj={}, peopleArray=[]) {
         }
     })
     return result
+}
+
+function findPersonDescendants(personObj={}, peopleArray=[]) {
+    let personDescendants = peopleArray.filter((item) => item.parents.includes(personObj.id));
+    if (personDescendants.length === 0) return personDescendants;
+    for (let i=0; i< personDescendants.length; i++) {
+        personDescendants = personDescendants.concat(findPersonDescendants(results[i], people))
+    }
+    return results;
 }
 
 // search by traits
