@@ -260,10 +260,36 @@ function findPersonDescendants(personObj = {}, peopleArray = []) {
   return (subPeopleArray);
 }
 
-// search by traits
+// validity functions here: 
+function belowSixTraits(input) {
+  if (input <= 5) {
+    return true;
+  }
+}
+
+function checkingSingularTraitSpelling(input){
+  if (input === "gender" ||input === "dob" ||input === "height" ||input === "weight" ||input === "eyeColor" ||input === "occupation"
+  ) {
+    return true;
+  }
+}
+
+function makingSureTraitDescriptionIsLegit (input) {
+  if (input === "female" || input === "male" 
+  || input === "brown" || input === "black"  || input === "hazel" || input === "blue" || input === "green"
+  || input === "programmer" || input === "assistant" || input == "landscaper" || input === "nurse" || input === "student" || input === "architect" || input === "doctor" || input === "landscaper" || input === "politician"
+  || input === "1/18/1949" || input === "4/1/1947" || input === "5/9/1951" || input === "9/6/1945" || input === "3/16/1938" || input === "4/10/1940" || input === "12/18/1952" || input === "10/28/1948" || input === "4/20/1939" || input === "5/6/1937" || input === "2/8/1972" || input === "12/23/1969" || input === "12/18/1969" || input === "11/4/1970" || input === "8/5/1967" || input === "3/13/1963" || input === "7/26/1959" || input === "10/7/1953" || input ===  "12/11/1961" || input === "2/19/1966" || input === "2/19/1970" || input ===  "2/02/1987"
+  )  {
+    return true;
+  }
+
+}
+// end of validity functions
+
+// function to searchByTraits:
 function searchByTraits(people) {
   let searchTraits = promptFor(
-    "We can search for people based on traits! How many identifiable traits can you think of? Maximum of 5: ",
+    "We can search for people based on traits! Please enter number of traits you would like to find the individual. Maximum of 5: ",
     belowSixTraits
   );
   let searchResults;
@@ -272,41 +298,71 @@ function searchByTraits(people) {
     case 1:
       searchResults = searchBySingularTrait(people);
       break;
-    case (2, 3, 4, 5):
+    case 2:
+      searchResults = searchByManyTraits(people);
+      break;
+    case 3:
+      searchResults = searchByManyTraits(people);
+      break;
+    case 4:
+      searchResults = searchByManyTraits(people);
+      break;
+    case 5:
       searchResults = searchByManyTraits(people);
       break;
     default:
       searchByTraits(people);
       break;
   }
-  findingPeople(searchResults, people);
+  searchResults = findMatchingWeightorHeight(searchResults, people);
+  displayPeople(searchResults);
 }
 
-function belowSixTraits(input) {
-  if (input <= 5) {
-    return true;
+function findMatchingWeightorHeight(searchResults, peopleArray=[]) {
+  let subPeopleTraitsArray = peopleArray.filter((obj) =>
+    (obj.weight === searchResults) || (obj.height === searchResults)
+  );
+  console.log("subPeopleTraitsArray:", subPeopleTraitsArray);
+  if (subPeopleTraitsArray.length === 0) return subPeopleTraitsArray;
+  for (let i = 0; i < subPeopleTraitsArray.length; i++) {
+    subPeopleTraitsArray = subPeopleTraitsArray.concat(
+      findMatchingWeightorHeight(subPeopleTraitsArray[i], peopleArray)
+    );
   }
+  return (subPeopleTraitsArray);
 }
 
-function searchBySingularTrait(people = []) {
+
+
+
+
+
+
+
+
+
+// only looking for one trait at a time:
+function searchBySingularTrait() {
   let userInputTrait = promptFor(
     "What trait would you like to search for? Options are gender, dob, height, weight, eyeColor, occupation: ",
-    checkingTraits
+    checkingSingularTraitSpelling
   );
-  let userInputDescribe = prompt("Please describe trait: ");
-  let foundPeople = people.filter(function (foundObj) {
-    if (foundObj[userInputTrait].includes(userInputDescribe)) {
-      return true;
-    }
-  });
-  return foundPeople;
-}
-
-function checkingTraits(input){
-  if (input === "gender" ||input === "dob" ||input === "height" ||input === "weight" ||input === "eyeColor" ||input === "occupation"
-  ) {
-    return true;
+  if ((userInputTrait === "weight") || (userInputTrait === "height")) {
+    let searchResultsWeight = promptFor("Please enter value: ", parseInt);
+    searchResultsWeight = parseInt(searchResultsWeight);
+    return searchResultsWeight;
+  } else {
+    let searchResults = promptFor("Please describe trait: ", makingSureTraitDescriptionIsLegit);
+    return searchResults
   }
+};
+
+
+
+
+
+function checkingManyTraits(input){
+
 }
 
 function searchByManyTraits(people = []) {}
