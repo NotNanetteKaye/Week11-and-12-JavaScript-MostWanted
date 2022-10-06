@@ -274,17 +274,38 @@ function checkingSingularTraitSpelling(input){
   }
 }
 
-function makingSureTraitDescriptionIsLegit (input) {
-  if (input === "female" || input === "male" 
-  || input === "brown" || input === "black"  || input === "hazel" || input === "blue" || input === "green"
-  || input === "programmer" || input === "assistant" || input == "landscaper" || input === "nurse" || input === "student" || input === "architect" || input === "doctor" || input === "landscaper" || input === "politician"
-  || input === "1/18/1949" || input === "4/1/1947" || input === "5/9/1951" || input === "9/6/1945" || input === "3/16/1938" || input === "4/10/1940" || input === "12/18/1952" || input === "10/28/1948" || input === "4/20/1939" || input === "5/6/1937" || input === "2/8/1972" || input === "12/23/1969" || input === "12/18/1969" || input === "11/4/1970" || input === "8/5/1967" || input === "3/13/1963" || input === "7/26/1959" || input === "10/7/1953" || input ===  "12/11/1961" || input === "2/19/1966" || input === "2/19/1970" || input ===  "2/02/1987"
-  )  {
+function genderInputIsCorrect (input) {
+  if (input === "female" || input === "male")  {
     return true;
   }
 
 }
+
+function eyeColorInputIsCorrect (input) {
+  if (input === "brown" || input === "black"  || input === "hazel" || input === "blue" || input === "green")  {
+    return true;
+  }
+
+}
+
+function occupationInputIsCorrect (input) {
+  if (input === "programmer" || input === "assistant" || input == "landscaper" || input === "nurse" || input === "student" || input === "architect" || input === "doctor" || input === "landscaper" || input === "politician")  {
+    return true;
+  }
+
+}
+
+function dobInputIsCorrect (input) {
+  if (input === "1/18/1949" || input === "4/1/1947" || input === "5/9/1951" || input === "9/6/1945" || input === "3/16/1938" || input === "4/10/1940" || input === "12/18/1952" ||input === "10/28/1948" ||input === "3/16/1938" ||input === "4/20/1939" ||input === "5/6/1937" ||input === "2/8/1972" ||input === "12/23/1969" ||input === "12/18/1969" ||input === "11/4/1970") {
+    return true;
+  }
+}
 // end of validity functions
+
+
+
+
+
 
 // function to searchByTraits:
 function searchByTraits(people) {
@@ -314,31 +335,23 @@ function searchByTraits(people) {
       searchByTraits(people);
       break;
   }
-  searchResults = findMatchingWeightorHeight(searchResults, people);
+  searchResults = findMatchingTraits(searchResults, people);
   displayPeople(searchResults);
 }
 
-function findMatchingWeightorHeight(searchResults, peopleArray=[]) {
+function findMatchingTraits(searchResults, peopleArray=[]) {
   let subPeopleTraitsArray = peopleArray.filter((obj) =>
-    (obj.weight === searchResults) || (obj.height === searchResults)
+    (obj.weight === searchResults) || (obj.height === searchResults) || (obj.gender === searchResults) || (obj.dob=== searchResults) || (obj.eyeColor === searchResults) || (obj.occupation === searchResults)
   );
   console.log("subPeopleTraitsArray:", subPeopleTraitsArray);
   if (subPeopleTraitsArray.length === 0) return subPeopleTraitsArray;
   for (let i = 0; i < subPeopleTraitsArray.length; i++) {
     subPeopleTraitsArray = subPeopleTraitsArray.concat(
-      findMatchingWeightorHeight(subPeopleTraitsArray[i], peopleArray)
+      findMatchingTraits(subPeopleTraitsArray[i], peopleArray)
     );
   }
   return (subPeopleTraitsArray);
 }
-
-
-
-
-
-
-
-
 
 
 // only looking for one trait at a time:
@@ -348,21 +361,16 @@ function searchBySingularTrait() {
     checkingSingularTraitSpelling
   );
   if ((userInputTrait === "weight") || (userInputTrait === "height")) {
-    let searchResultsWeight = promptFor("Please enter value: ", parseInt);
-    searchResultsWeight = parseInt(searchResultsWeight);
-    return searchResultsWeight;
-  } else {
-    let searchResults = promptFor("Please describe trait: ", makingSureTraitDescriptionIsLegit);
-    return searchResults
+    let searchResultsWeightorHeight = promptFor("Please enter value: ", parseInt);
+    searchResultsWeightorHeight = parseInt(searchResultsWeightorHeight);
+    return searchResultsWeightorHeight;
+  } 
+  if (userInputTrait === "gender") {
+    let searchResultsGender = promptFor("Are you looking for a male or a female?", genderInputIsCorrect);
+    return searchResultsGender;
   }
+  if (userInputTrait === "dob") {
+    let searchResultsDOB = promptFor("Please enter dob of person in this format (ex: 11/4/1970): ", dobInputIsCorrect);
+    return searchResultsDOB;
 };
-
-
-
-
-
-function checkingManyTraits(input){
-
 }
-
-function searchByManyTraits(people = []) {}
