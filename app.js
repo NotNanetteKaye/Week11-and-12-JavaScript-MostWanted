@@ -373,4 +373,16 @@ function searchBySingularTrait() {
     let searchResultsDOB = promptFor("Please enter dob of person in this format (ex: 11/4/1970): ", dobInputIsCorrect);
     return searchResultsDOB;
 };
+  if (userInputTrait === "eyeColor") {
+    let searchResultsEyeColor = promptFor("Please enter color of eyes: ", eyeColorInputIsCorrect);
+    return searchResultsEyeColor; 
+  }
+  if (userInputTrait === "occupation") {
+    let searchResultsOccupation = promptFor("Please enter person's occupation: ", occupationInputIsCorrect);
+    return searchResultsOccupation; 
+  }
+}
+
+function searchByManyTraits() {
+  userInput
 }
