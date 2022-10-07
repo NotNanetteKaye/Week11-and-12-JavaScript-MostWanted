@@ -546,3 +546,37 @@ function searchByFourTraits() {
     }
   promptFor("Starting over because you did not choose four traits.", searchByFourTraits)
 }
+
+function searchByFiveTraits() {
+  let userInputTraitsCategories = [];
+  alert( "We are identifying a person by 5 traits! The traits you can search by are gender, dob, height, weight, eyeColor, occupation.")
+  while (userInputTraitsCategories.length < 1) {
+    let traitCategory = promptFor("would you like to search by gender? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("gender")
+    }
+    traitCategory = promptFor("would you like to search by dob? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("dob")
+    }
+    traitCategory = promptFor("would you like to search by height? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("height")
+    }
+    traitCategory = promptFor("would you like to search by weight? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("weight")
+    }
+    traitCategory = promptFor("would you like to search by eyeColor? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("eyeColor")
+    }
+    if (userInputTraitsCategories.length === 5) return userInputTraitsCategories;
+    traitCategory = promptFor("would you like to search by occupation? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("occupation")
+    }
+    if (userInputTraitsCategories.length === 5) return userInputTraitsCategories;
+    }
+  promptFor("Starting over because you did not choose five traits.", searchByFiveTraits)
+}
