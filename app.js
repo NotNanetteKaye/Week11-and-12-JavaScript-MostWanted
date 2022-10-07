@@ -445,8 +445,13 @@ function matchingTraitstoIncomingArray(searchResults=[]) {
   let userInputTraitsCharacteristics = []
   let i=0
   while (i < searchResults.length) {
-    if ((searchResults[i] === "weight") || (searchResults[i] === "height")) {
-      let searchResultsWeightorHeight = promptFor("Please enter value: ", parseInt);
+    if (searchResults[i] === "weight") {
+      let searchResultsWeightorHeight = promptFor("Please enter weight: ", parseInt);
+      searchResultsWeightorHeight = parseInt(searchResultsWeightorHeight);
+      userInputTraitsCharacteristics.push(searchResultsWeightorHeight);
+    } 
+    if (searchResults[i] === "height") {
+      let searchResultsWeightorHeight = promptFor("Please enter height: ", parseInt);
       searchResultsWeightorHeight = parseInt(searchResultsWeightorHeight);
       userInputTraitsCharacteristics.push(searchResultsWeightorHeight);
     } 
@@ -505,4 +510,39 @@ function searchByThreeTraits() {
     if (userInputTraitsCategories.length === 3) return userInputTraitsCategories;
     }
   promptFor("Starting over because you did not choose three traits.", searchByThreeTraits)
+}
+
+function searchByFourTraits() {
+  let userInputTraitsCategories = [];
+  alert( "We are identifying a person by 4 traits! The traits you can search by are gender, dob, height, weight, eyeColor, occupation.")
+  while (userInputTraitsCategories.length < 1) {
+    let traitCategory = promptFor("would you like to search by gender? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("gender")
+    }
+    traitCategory = promptFor("would you like to search by dob? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("dob")
+    }
+    traitCategory = promptFor("would you like to search by height? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("height")
+    }
+    traitCategory = promptFor("would you like to search by weight? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("weight")
+    }
+    if (userInputTraitsCategories.length === 4) return userInputTraitsCategories;
+    traitCategory = promptFor("would you like to search by eyeColor? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("eyeColor")
+    }
+    if (userInputTraitsCategories.length === 4) return userInputTraitsCategories;
+    traitCategory = promptFor("would you like to search by occupation? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("occupation")
+    }
+    if (userInputTraitsCategories.length === 4) return userInputTraitsCategories;
+    }
+  promptFor("Starting over because you did not choose four traits.", searchByFourTraits)
 }
