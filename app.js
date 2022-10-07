@@ -304,9 +304,6 @@ function dobInputIsCorrect (input) {
 
 
 
-
-
-
 // function to searchByTraits:
 function searchByTraits(people) {
   let searchTraits = promptFor(
@@ -318,28 +315,51 @@ function searchByTraits(people) {
   switch (searchTraits) {
     case 1:
       searchResults = searchBySingularTrait(people);
+      searchResults = findMatchingTrait(searchResults, people)
       break;
     case 2:
-      searchResults = searchByManyTraits(people);
+      searchResults = searchByTwoTraits(people);
+      searchResults = matchingTraitstoIncomingArray(searchResults);
+      searchResults = findMatchingTraits(searchResults, people);
       break;
     case 3:
-      searchResults = searchByManyTraits(people);
+      searchResults = searchByThreeTraits(people);
+      searchResults = matchingTraitstoIncomingArray(searchResults);
+      searchResults = findMatchingTraits(searchResults, people);
       break;
     case 4:
-      searchResults = searchByManyTraits(people);
+      searchResults = searchByFourTraits(people);
+      searchResults = matchingTraitstoIncomingArray(searchResults);
+      searchResults = findMatchingTraits(searchResults, people);
       break;
     case 5:
-      searchResults = searchByManyTraits(people);
+      searchResults = searchByFiveTraits(people);
+      searchResults = matchingTraitstoIncomingArray(searchResults);
+      searchResults = findMatchingTraits(searchResults, people);
       break;
     default:
       searchByTraits(people);
       break;
   }
-  searchResults = findMatchingTraits(searchResults, people);
   displayPeople(searchResults);
 }
 
 function findMatchingTraits(searchResults, peopleArray=[]) {
+  let i=0;
+  let subPeopleTraitsArray = peopleArray.filter((obj) =>
+  (obj.weight === searchResults[i]) || (obj.height === searchResults[i]) || (obj.gender === searchResults[i]) || (obj.dob=== searchResults[i]) || (obj.eyeColor === searchResults[i]) || (obj.occupation === searchResults[i]));
+  console.log("subPeopleTraitsArray:", subPeopleTraitsArray);
+  if (subPeopleTraitsArray.length === 0) return subPeopleTraitsArray;
+  for (let i =1; i< subPeopleTraitsArray.length; i++) {
+    subPeopleTraitsArray = subPeopleTraitsArray.filter((obj) =>
+    (obj.weight === searchResults[i]) || (obj.height === searchResults[i]) || (obj.gender === searchResults[i]) || (obj.dob=== searchResults[i]) || (obj.eyeColor === searchResults[i]) || (obj.occupation === searchResults[i]));
+    console.log("new subPeopleTraitsArray:", subPeopleTraitsArray)
+  }
+  return subPeopleTraitsArray;
+};
+
+
+function findMatchingTrait(searchResults, peopleArray=[]) {
   let subPeopleTraitsArray = peopleArray.filter((obj) =>
     (obj.weight === searchResults) || (obj.height === searchResults) || (obj.gender === searchResults) || (obj.dob=== searchResults) || (obj.eyeColor === searchResults) || (obj.occupation === searchResults)
   );
@@ -383,6 +403,71 @@ function searchBySingularTrait() {
   }
 }
 
-function searchByManyTraits() {
-  userInput
+
+function searchByTwoTraits() {
+  let userInputTraitsCategories = [];
+  alert( "We are identifying a person by 2 traits! The traits you can search by are gender, dob, height, weight, eyeColor, occupation.")
+  while (userInputTraitsCategories.length < 1) {
+    let traitCategory = promptFor("would you like to search by gender? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("gender")
+    }
+    traitCategory = promptFor("would you like to search by dob? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("dob")
+    }
+    if (userInputTraitsCategories.length === 2) return userInputTraitsCategories;
+    traitCategory = promptFor("would you like to search by height? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("height")
+    }
+    if (userInputTraitsCategories.length === 2) return userInputTraitsCategories;
+    traitCategory = promptFor("would you like to search by weight? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("weight")
+    }
+    if (userInputTraitsCategories.length === 2) return userInputTraitsCategories;
+    traitCategory = promptFor("would you like to search by eyeColor? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("eyeColor")
+    }
+    if (userInputTraitsCategories.length === 2) return userInputTraitsCategories;
+    traitCategory = promptFor("would you like to search by occupation? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("occupation")
+    }
+    if (userInputTraitsCategories.length === 2) return userInputTraitsCategories;
+    }
+  promptFor("Starting over because you did not choose two traits.", searchByTwoTraits)
 }
+
+function matchingTraitstoIncomingArray(searchResults=[]) {
+  let userInputTraitsCharacteristics = []
+  let i=0
+  while (i < searchResults.length) {
+    if ((searchResults[i] === "weight") || (searchResults[i] === "height")) {
+      let searchResultsWeightorHeight = promptFor("Please enter value: ", parseInt);
+      searchResultsWeightorHeight = parseInt(searchResultsWeightorHeight);
+      userInputTraitsCharacteristics.push(searchResultsWeightorHeight);
+    } 
+    if (searchResults[i] === "gender") {
+      let searchResultsGender = promptFor("Are you looking for a male or a female?", genderInputIsCorrect);
+      userInputTraitsCharacteristics.push(searchResultsGender);
+    }
+    if (searchResults[i] === "dob") {
+      let searchResultsDOB = promptFor("Please enter dob of person in this format (ex: 11/4/1970): ", dobInputIsCorrect);
+      userInputTraitsCharacteristics.push(searchResultsDOB);
+    };
+    if (searchResults[i] === "eyeColor") {
+      let searchResultsEyeColor = promptFor("Please enter color of eyes: ", eyeColorInputIsCorrect);
+      userInputTraitsCharacteristics.push(searchResultsEyeColor); 
+    }
+    if (searchResults[i] === "occupation") {
+      let searchResultsOccupation = promptFor("Please enter person's occupation: ", occupationInputIsCorrect);
+      userInputTraitsCharacteristics.push(searchResultsOccupation); 
+    }
+    i++;
+  }
+  return userInputTraitsCharacteristics;
+}
+
