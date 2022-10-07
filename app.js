@@ -471,3 +471,38 @@ function matchingTraitstoIncomingArray(searchResults=[]) {
   return userInputTraitsCharacteristics;
 }
 
+function searchByThreeTraits() {
+  let userInputTraitsCategories = [];
+  alert( "We are identifying a person by 3 traits! The traits you can search by are gender, dob, height, weight, eyeColor, occupation.")
+  while (userInputTraitsCategories.length < 1) {
+    let traitCategory = promptFor("would you like to search by gender? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("gender")
+    }
+    traitCategory = promptFor("would you like to search by dob? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("dob")
+    }
+    traitCategory = promptFor("would you like to search by height? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("height")
+    }
+    if (userInputTraitsCategories.length === 3) return userInputTraitsCategories;
+    traitCategory = promptFor("would you like to search by weight? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("weight")
+    }
+    if (userInputTraitsCategories.length === 3) return userInputTraitsCategories;
+    traitCategory = promptFor("would you like to search by eyeColor? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("eyeColor")
+    }
+    if (userInputTraitsCategories.length === 3) return userInputTraitsCategories;
+    traitCategory = promptFor("would you like to search by occupation? Please enter yes or no: ", yesNo)
+    if (traitCategory === "yes") {
+      userInputTraitsCategories.push("occupation")
+    }
+    if (userInputTraitsCategories.length === 3) return userInputTraitsCategories;
+    }
+  promptFor("Starting over because you did not choose three traits.", searchByThreeTraits)
+}
